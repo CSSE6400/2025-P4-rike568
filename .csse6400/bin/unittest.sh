@@ -1,7 +1,13 @@
 #!/bin/bash
 #
-# Copy the tests directory and run the tests
+# Install dependencies and run tests using pipenv
 
-pipenv install
-pipenv run python3 -m unittest discover -s tests
+echo "Installing dependencies with pipenv..."
+pipenv install || { echo "❌ pipenv install failed"; exit 1; }
 
+echo "Running tests..."
+pipenv run python -m unittest discover -s tests || { echo "❌ Tests failed"; }
+
+echo
+echo "✅ Script finished. Press any key to exit..."
+read -n 1 -s
